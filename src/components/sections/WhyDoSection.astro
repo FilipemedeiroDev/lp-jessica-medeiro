@@ -66,4 +66,27 @@ import CarrouselImage from "../CarrouselImage.astro";
   .why-do-text p {
     text-align: justify;
   }
+
+  @media (max-width: 1024px) {
+    .why-do {
+      height: auto;
+    }
+
+    .content {
+      width: 100%;
+      flex-direction: column-reverse;
+      padding: 60px 0;
+
+      gap: 30px;
+    }
+
+    .why-do-text {
+      width: 90%;
+      text-align: center;
+    }
+
+    .why-do-text p {
+      text-align: center;
+    }
+  }
 </style>

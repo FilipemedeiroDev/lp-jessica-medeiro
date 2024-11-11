@@ -15,6 +15,57 @@ const imagesUrl = [
 ];
 ---
 
+<script>
+  const carrouselInner = document.querySelector(
+    ".carrousel-inner"
+  ) as HTMLElement;
+  const indicators = document.querySelectorAll(".indicator");
+  let currentIndex = 0;
+
+  const updateCarrousel = () => {
+    carrouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle("active", index === currentIndex);
+    });
+  };
+
+  const nextImage = () => {
+    currentIndex = (currentIndex + 1) % indicators.length;
+    updateCarrousel();
+  };
+
+  const prevImage = () => {
+    currentIndex = (currentIndex - 1 + indicators.length) % indicators.length;
+    updateCarrousel();
+  };
+
+  // Evento para os botões de controle
+  document.querySelector(".next").addEventListener("click", () => {
+    clearInterval(autoSlideInterval);
+    nextImage();
+    autoSlideInterval = setInterval(nextImage, 3000);
+  });
+
+  document.querySelector(".prev").addEventListener("click", () => {
+    clearInterval(autoSlideInterval);
+    prevImage();
+    autoSlideInterval = setInterval(nextImage, 3000);
+  });
+
+  // Evento para as bolinhas de indicador
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener("click", () => {
+      clearInterval(autoSlideInterval);
+      currentIndex = index;
+      updateCarrousel();
+      autoSlideInterval = setInterval(nextImage, 3000);
+    });
+  });
+
+  // Configuração da transição automática
+  let autoSlideInterval = setInterval(nextImage, 3000); // 3 segundos
+</script>
+
 <div class="carrousel-container">
   <div class="carrousel-wrapper">
     <div class="carrousel">
@@ -133,55 +184,19 @@ const imagesUrl = [
   .indicator.active {
     background-color: #e1245e;
   }
+
+  @media (max-width: 1024px) {
+    .carrousel {
+      height: 200px;
+    }
+
+    .carrousel-wrapper {
+      width: 280px;
+      height: 200px;
+    }
+    .carrousel-item {
+      width: 280px;
+      height: 200px;
+    }
+  }
 </style>
-
-<script>
-  const carrouselInner = document.querySelector(
-    ".carrousel-inner"
-  ) as HTMLElement;
-  const indicators = document.querySelectorAll(".indicator");
-  let currentIndex = 0;
-
-  const updateCarrousel = () => {
-    carrouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
-    indicators.forEach((indicator, index) => {
-      indicator.classList.toggle("active", index === currentIndex);
-    });
-  };
-
-  const nextImage = () => {
-    currentIndex = (currentIndex + 1) % indicators.length;
-    updateCarrousel();
-  };
-
-  const prevImage = () => {
-    currentIndex = (currentIndex - 1 + indicators.length) % indicators.length;
-    updateCarrousel();
-  };
-
-  // Evento para os botões de controle
-  document.querySelector(".next").addEventListener("click", () => {
-    clearInterval(autoSlideInterval);
-    nextImage();
-    autoSlideInterval = setInterval(nextImage, 3000);
-  });
-
-  document.querySelector(".prev").addEventListener("click", () => {
-    clearInterval(autoSlideInterval);
-    prevImage();
-    autoSlideInterval = setInterval(nextImage, 3000);
-  });
-
-  // Evento para as bolinhas de indicador
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener("click", () => {
-      clearInterval(autoSlideInterval);
-      currentIndex = index;
-      updateCarrousel();
-      autoSlideInterval = setInterval(nextImage, 3000);
-    });
-  });
-
-  // Configuração da transição automática
-  let autoSlideInterval = setInterval(nextImage, 3000); // 3 segundos
-</script>

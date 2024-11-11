@@ -26,9 +26,20 @@
     navLinks.classList.remove("open");
   });
 
-  // Fecha o menu ao clicar em um link
+  // Fecha o menu e faz rolagem suave ao clicar em um link
   document.querySelectorAll(".nav-links li a").forEach((link) => {
-    link.addEventListener("click", () => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault(); // Evita o comportamento padrão de navegação
+      const targetId = link.getAttribute("href").substring(1); // Pega o ID do alvo
+      const targetSection = document.getElementById(targetId); // Encontra a seção alvo
+
+      // Faz o scroll suave até a seção alvo
+      window.scrollTo({
+        top: targetSection.offsetTop - header.offsetHeight,
+        behavior: "smooth",
+      });
+
+      // Fecha o menu após a rolagem suave
       navLinks.classList.remove("open");
     });
   });
@@ -64,6 +75,7 @@
     position: fixed;
     top: 0;
     width: 100%;
+    height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -125,7 +137,7 @@
   }
 
   /* Responsive for Mobile */
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     .menu-toggle {
       display: block;
     }
@@ -134,7 +146,7 @@
       position: fixed;
       top: 0;
       right: 0;
-      width: 70%;
+      width: 80%;
       height: 100%;
       background-color: #161515;
       flex-direction: column;
@@ -142,6 +154,7 @@
       gap: 1.5rem;
       padding-top: 80px;
       transform: translateX(100%);
+      box-shadow: 0px 4px 4px rgba(255, 255, 255, 0.438);
     }
 
     .nav-links.open {
@@ -150,7 +163,7 @@
 
     .content-header {
       justify-content: space-between;
-      padding-inline: 60px;
+      padding-inline: 40px;
     }
 
     .logo {

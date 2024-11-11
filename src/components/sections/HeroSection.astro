@@ -49,4 +49,26 @@ import ButtonAppointment from "../ButtonAppointment.astro";
   .hero-call-to-action a img {
     width: 24px;
   }
+
+  @media (max-width: 1024px) {
+    .hero-banner {
+      height: 60vh;
+    }
+    .content {
+      width: 90%;
+      height: auto;
+    }
+
+    .hero-call-to-action {
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+    }
+
+    .hero-call-to-action span {
+      font-size: 18px;
+    }
+  }
 </style>
