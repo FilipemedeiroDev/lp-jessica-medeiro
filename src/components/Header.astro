@@ -20,10 +20,12 @@
   // Abre e fecha o menu ao clicar no ícone de menu ou no botão de fechar
   menuToggle.addEventListener("click", () => {
     navLinks.classList.toggle("open");
+    document.body.classList.toggle("no-scroll"); // Adiciona a classe "no-scroll" ao document.querySelector("body") as HTMLElement;
   });
 
   closeMenu.addEventListener("click", () => {
     navLinks.classList.remove("open");
+    document.body.classList.remove("no-scroll");
   });
 
   // Fecha o menu e faz rolagem suave ao clicar em um link
@@ -41,6 +43,7 @@
 
       // Fecha o menu após a rolagem suave
       navLinks.classList.remove("open");
+      document.body.classList.remove("no-scroll");
     });
   });
 
@@ -49,6 +52,7 @@
     const target = event.target as Node;
     if (!navLinks.contains(target) && !menuToggle.contains(target)) {
       navLinks.classList.remove("open");
+      document.body.classList.remove("no-scroll");
     }
   });
 </script>
