@@ -1,0 +1,187 @@
+---
+import ButtonAppointment from "./ButtonAppointment.astro";
+
+const imagesUrl = [
+  "/public/image-carrousel-1.jpg",
+  "/public/image-carrousel-2.jpg",
+  "/public/image-carrousel-3.jpg",
+  "/public/image-carrousel-4.jpg",
+  "/public/image-carrousel-5.jpg",
+  "/public/image-carrousel-6.jpg",
+  "/public/image-carrousel-7.jpg",
+  "/public/image-carrousel-8.jpg",
+  "/public/image-carrousel-9.jpg",
+  "/public/image-carrousel-10.jpg",
+];
+---
+
+<div class="carrousel-container">
+  <div class="carrousel-wrapper">
+    <div class="carrousel">
+      <div class="carrousel-inner">
+        {
+          imagesUrl.map((url, index) => (
+            <div class="carrousel-item">
+              <img src={url} alt={`Imagem ${index + 1}`} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Controles -->
+    <button class="prev">❮</button>
+    <button class="next">❯</button>
+
+    <!-- Indicadores -->
+    <div class="indicators">
+      {
+        imagesUrl.map((_, index) => (
+          <span class="indicator" data-index={index} />
+        ))
+      }
+    </div>
+  </div>
+
+  <ButtonAppointment>Agende seu horário</ButtonAppointment>
+</div>
+
+<style>
+  .carrousel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 50px;
+  }
+  .carrousel-wrapper {
+    position: relative;
+    width: 400px;
+    height: 420px; /* Ajuste para incluir os botões e indicadores fora da imagem */
+    margin: 0 auto;
+  }
+
+  .carrousel {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .carrousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .carrousel-item {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carrousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Controles */
+  .prev,
+  .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #e1245e;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
+  }
+
+  .prev {
+    left: -40px; /* Posiciona fora da área da imagem */
+  }
+
+  .next {
+    right: -40px; /* Posiciona fora da área da imagem */
+  }
+
+  /* Indicadores */
+  .indicators {
+    position: absolute;
+    bottom: -20px; /* Coloca as bolinhas abaixo da imagem */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+  }
+
+  .indicator {
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .indicator.active {
+    background-color: #e1245e;
+  }
+</style>
+
+<script>
+  const carrouselInner = document.querySelector(
+    ".carrousel-inner"
+  ) as HTMLElement;
+  const indicators = document.querySelectorAll(".indicator");
+  let currentIndex = 0;
+
+  const updateCarrousel = () => {
+    carrouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle("active", index === currentIndex);
+    });
+  };
+
+  const nextImage = () => {
+    currentIndex = (currentIndex + 1) % indicators.length;
+    updateCarrousel();
+  };
+
+  const prevImage = () => {
+    currentIndex = (currentIndex - 1 + indicators.length) % indicators.length;
+    updateCarrousel();
+  };
+
+  // Evento para os botões de controle
+  document.querySelector(".next").addEventListener("click", () => {
+    clearInterval(autoSlideInterval);
+    nextImage();
+    autoSlideInterval = setInterval(nextImage, 3000);
+  });
+
+  document.querySelector(".prev").addEventListener("click", () => {
+    clearInterval(autoSlideInterval);
+    prevImage();
+    autoSlideInterval = setInterval(nextImage, 3000);
+  });
+
+  // Evento para as bolinhas de indicador
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener("click", () => {
+      clearInterval(autoSlideInterval);
+      currentIndex = index;
+      updateCarrousel();
+      autoSlideInterval = setInterval(nextImage, 3000);
+    });
+  });
+
+  // Configuração da transição automática
+  let autoSlideInterval = setInterval(nextImage, 3000); // 3 segundos
+</script>

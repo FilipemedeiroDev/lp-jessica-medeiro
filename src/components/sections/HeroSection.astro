@@ -1,0 +1,52 @@
+---
+import ButtonAppointment from "../ButtonAppointment.astro";
+---
+
+<section id="inicio" class="hero-banner">
+  <div class="content">
+    <div class="hero-call-to-action">
+      <h1>TRANSFORMANDO OLHARES</h1>
+      <p>
+        Elevando sua beleza natural, cílios mais longos e volumosos com a
+        extensão perfeita! <span
+          >Pra cuidar da sua vida já tem muitos, deixa que dos seus cílios e
+          sobrancelhas cuido eu!</span
+        >
+      </p>
+      <ButtonAppointment>Agende seu horário</ButtonAppointment>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-banner {
+    background-image: url("/hero-banner.jpg");
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    background-blend-mode: multiply;
+    height: 80vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-call-to-action {
+    display: flex;
+    flex-direction: column;
+
+    width: 60%;
+    margin-top: 5rem;
+  }
+
+  .hero-call-to-action span {
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  .hero-call-to-action a img {
+    width: 24px;
+  }
+</style>

@@ -1,0 +1,29 @@
+<a
+  href="https://api.whatsapp.com/send?phone=5511947966822&text=Olá Jéssica, visitei o seu site. Gostaria de agendar um horário."
+  target="_blank"
+>
+  <slot />
+  <img src="/icons/whatsapp.svg" alt="whatsapp icon" /></a
+>
+
+<style>
+  a {
+    width: 300px;
+    background-color: #e1245e;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  a:hover {
+    background-color: #f96391;
+  }
+</style>

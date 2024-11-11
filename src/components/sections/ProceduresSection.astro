@@ -1,0 +1,71 @@
+---
+import ButtonAppointment from "../ButtonAppointment.astro";
+
+const procedures = [
+  {
+    id: 1,
+    title: "Extensão de cílios",
+    image: "/public/hero-banner.jpg",
+    slogan: "Praticidade que realça o olhar",
+  },
+  {
+    id: 2,
+    title: "Design de sobrancelhas",
+    image: "/public/design-sobrancelhas.jpg",
+    slogan: "Tenha um rosto mais harmonioso",
+  },
+];
+---
+
+<section id="procedimentos" class="procedures-section">
+  <h1>PROCEDIMENTOS</h1>
+  <div class="content">
+    {
+      procedures.map((procedure) => (
+        <div class="procedure">
+          <img src={procedure.image} alt={procedure.title} />
+          <h2>{procedure.title}</h2>
+          <p>{procedure.slogan}</p>
+          <ButtonAppointment>Saiba mais</ButtonAppointment>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .procedures-section {
+    width: 100%;
+    height: 90vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 180px;
+
+    margin-top: 60px;
+  }
+
+  .procedure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    cursor: pointer;
+  }
+
+  .procedure img {
+    width: 500px;
+    height: 300px;
+    border-radius: 12px;
+  }
+</style>

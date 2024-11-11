@@ -1,0 +1,101 @@
+<script>
+  const header = document.querySelector("header");
+  const logo = document.querySelector(".logo");
+
+  // Função para alterar o estilo do header no scroll
+  const changeHeader = () => {
+    if (window.scrollY > 0) {
+      header.classList.add("scroll");
+      logo.setAttribute("src", "/logo-light.png");
+    } else {
+      header.classList.remove("scroll");
+      logo.setAttribute("src", "/logo-dark.png");
+    }
+  };
+
+  // Adiciona evento de scroll
+  window.addEventListener("scroll", changeHeader);
+
+  // Seleciona todos os links do header que apontam para seções da página
+  document.querySelectorAll("header ul li a").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault(); // Evita o comportamento padrão do link
+
+      // Seleciona o elemento alvo de acordo com o ID do link
+      const targetId = link.getAttribute("href").substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      // Faz o scroll suave até o elemento alvo
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - header.offsetHeight, // Compensa a altura do header fixo
+          behavior: "smooth",
+        });
+      }
+    });
+  });
+</script>
+
+<header>
+  <div class="content-header">
+    <a href="#">
+      <img src="/logo-dark.png" alt="Logo" class="logo" />
+    </a>
+
+    <ul>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#porque">Por que fazer extensão?</a></li>
+      <li><a href="#procedimentos">Procedimentos</a></li>
+    </ul>
+  </div>
+</header>
+
+<style>
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 50;
+  }
+
+  .scroll {
+    background-color: #f96391;
+    transition:
+      background-color 0.3s ease,
+      box-shadow 0.3s ease-in-out;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1200px;
+  }
+
+  .logo {
+    width: 150px;
+    height: 150px;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  ul li a {
+    font-size: 22px;
+    color: #fff;
+  }
+
+  ul li a:hover {
+    color: #e1245e;
+  }
+</style>
