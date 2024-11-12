@@ -1,5 +1,4 @@
 ---
-import ButtonAppointment from "../ButtonAppointment.astro";
 import CarrouselImage from "../CarrouselImage.astro";
 ---
 
@@ -52,7 +51,6 @@ import CarrouselImage from "../CarrouselImage.astro";
     align-items: center;
     justify-content: space-between;
 
-    gap: 180px;
   }
 
   .why-do-text {
@@ -87,6 +85,17 @@ import CarrouselImage from "../CarrouselImage.astro";
 
     .why-do-text p {
       text-align: center;
+    }
+  }
+
+  @media (max-width: 1400px) {
+    .why-do {
+      height: auto;
+    }
+
+    .content {
+      padding: 80px 0;
+
     }
   }
 </style>

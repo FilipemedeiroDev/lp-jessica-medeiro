@@ -58,7 +58,7 @@ const { title } = Astro.props;
   }
 
   .content {
-    width: 1200px;
+    width: 1100px;
   }
 
   h1 {
@@ -99,5 +99,20 @@ const { title } = Astro.props;
       font-size: 16px;
       margin-bottom: 10px;
     }
+  }
+
+  @media (max-width: 1400px) {
+    h1 {
+      font-size: 26px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
   }
 </style>
