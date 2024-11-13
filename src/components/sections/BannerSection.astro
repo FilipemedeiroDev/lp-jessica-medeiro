@@ -16,12 +16,14 @@
     background-position: center;
     background-color: rgba(0, 0, 0, 0.7);
     background-blend-mode: multiply;
-    height: 80vh;
+    height: auto;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    padding: 280px 0;
   }
 
   .banner-section p {
@@ -31,23 +33,15 @@
 
   @media (max-width: 1024px) {
     .banner-section {
-      height: 60vh;
+      padding: 220px 20px;
     }
 
     .banner-section p {
       font-size: 22px;
     }
-
-    .content {
-      width: 100%;
-    }
   }
 
-  @media (width: 1366px) {
-    .banner-section {
-      height: 80vh;
-    }
-
+  @media (min-width: 1025px) and (max-width: 1440px) {
     .banner-section p {
       font-size: 26px;
     }

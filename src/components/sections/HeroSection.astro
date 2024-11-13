@@ -25,11 +25,13 @@ import ButtonAppointment from "../ButtonAppointment.astro";
     background-position: center;
     background-color: rgba(0, 0, 0, 0.7);
     background-blend-mode: multiply;
-    height: 80vh;
+    height: auto;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    padding: 240px 0;
   }
 
   .hero-call-to-action {
@@ -52,11 +54,7 @@ import ButtonAppointment from "../ButtonAppointment.astro";
 
   @media (max-width: 1024px) {
     .hero-banner {
-      height: 60vh;
-    }
-    .content {
-      width: 90%;
-      height: auto;
+      padding: 180px 20px;
     }
 
     .hero-call-to-action {
@@ -72,7 +70,11 @@ import ButtonAppointment from "../ButtonAppointment.astro";
     }
   }
 
-  @media (width: 1366px) {
+  @media (min-width: 1025px) and (max-width: 1440px) {
+    .hero-banner {
+      padding-inline: 60px;
+    }
+
     .hero-call-to-action span {
       font-size: 18px;
     }
