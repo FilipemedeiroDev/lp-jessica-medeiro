@@ -17,7 +17,7 @@ const imagesUrl = [
 
 <script>
   const carrouselInner = document.querySelector(
-    ".carrousel-inner"
+    ".carrousel-inner",
   ) as HTMLElement;
   const indicators = document.querySelectorAll(".indicator");
   let currentIndex = 0;
@@ -94,7 +94,12 @@ const imagesUrl = [
     </div>
   </div>
 
-  <ButtonAppointment>Agende seu horário</ButtonAppointment>
+  <ButtonAppointment 
+    icon="/icons/whatsapp.svg"
+    targetUrl="https://api.whatsapp.com/send?phone=5511947966822&text=Olá Jéssica, visitei o seu site. Gostaria de agendar um horário." href="https://api.whatsapp.com/send?phone=5511947966822&text=Olá Jéssica, visitei o seu site. Gostaria de agendar um horário."
+  >
+    Agende seu horário
+  </ButtonAppointment>
 </div>
 
 <style>

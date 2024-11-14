@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Extensão de cílios">
+    <section class="banner-extensao">
+        <div class="content">
+            <h1>EXTENSÃO DE CÍLIOS</h1>
+            <p>Praticidade no olhar</p>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .banner-extensao {
+        background-image: url("/images/hero-banner.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-color: rgba(0, 0, 0, 0.7);
+        background-blend-mode: multiply;
+        height: auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 280px 0 220px 0;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+    }
+</style>
