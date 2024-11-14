@@ -14,7 +14,6 @@ const isBaseUrl =
       window.location.pathname === "/" ||
       window.location.pathname.startsWith("/#");
 
-   
     // Função para alterar o cabeçalho ao rolar ou carregar a página
     const changeHeader = () => {
       if (window.scrollY > 0) {
@@ -73,8 +72,8 @@ const isBaseUrl =
         document.body.classList.remove("no-scroll");
       }
     });
-  });
 
+  });
 </script>
 
 <header>
@@ -83,13 +82,34 @@ const isBaseUrl =
       <img src="/images/logo-dark.png" alt="Logo" class="logo" />
     </a>
     <div class="menu-toggle">&#9776;</div>
-    <ul class="nav-links">
-      <span class="close-menu">&times;</span>
-      <li><a href="/#inicio" id="#inicio">Inicio</a></li>
-      <li><a href={isBaseUrl ? "#sobre" : "/#sobre"}>Sobre</a></li>
-      <li><a href={isBaseUrl ? "#porque" : "/#porque"} id="#porque">Por que fazer extensão?</a></li>
-      <li><a href={isBaseUrl ? "#procedimentos" : "/#procedimentos"} id="#procedimentos">Procedimentos</a></li>
-    </ul>
+
+    {
+      isBaseUrl && (
+        <ul class="nav-links">
+          <span class="close-menu">&times;</span>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#porque">Por que fazer extensão?</a></li>
+          <li><a href="#procedimentos" >Procedimentos</a></li>
+        </ul>
+      )
+    }
+    {
+      !isBaseUrl && (
+        <ul class="nav-links">
+          <span class="close-menu">&times;</span>
+          <li><a href="/">&#8592; Voltar ao início</a></li>
+          <li class="dropdown">
+            <a>Procedimentos &#9662;</a>
+            <ul class="submenu">
+              <li><a href="/extensaodecilios">Extensão de cílios</a></li>
+              <li><a href="/desingsobrancelha">Design de Sobrancelha</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      )
+    }
   </div>
 </header>
 
@@ -109,6 +129,9 @@ const isBaseUrl =
       box-shadow 0.3s ease-in-out;
   }
 
+  .no-scroll {
+    overflow: hidden;
+  }
   .scroll {
     background-color: #f96391;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -128,7 +151,7 @@ const isBaseUrl =
     height: 150px;
   }
 
-  .nav-links {
+  .nav-links  {
     display: flex;
     list-style: none;
     gap: 2rem;
@@ -143,6 +166,48 @@ const isBaseUrl =
   .nav-links li a:hover {
     color: #e1245e;
   }
+
+ .dropdown {
+    position: relative;
+  }
+  .nav-links .dropdown .submenu {
+    display: none;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: -34px;
+    background-color: #333;
+    padding: 0;
+    list-style: none;
+    min-width: 250px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+  }
+
+  .nav-links .dropdown .submenu li a {
+    width: 100%;
+  }
+
+  .submenu li a {
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  .submenu li:hover {
+    background-color: #444;
+
+  }
+ .submenu li a:hover {
+    color: #e1245e;
+  }
+
+  .nav-links .dropdown:hover .submenu {
+    display: block;
+  }
+
 
   /* Mobile Menu */
   .menu-toggle {
@@ -159,7 +224,7 @@ const isBaseUrl =
   .close-menu {
     display: none;
   }
-
+  
   /* Responsive for Mobile */
   @media (max-width: 1024px) {
     .menu-toggle {
@@ -189,7 +254,7 @@ const isBaseUrl =
       justify-content: space-between;
       padding-inline: 40px;
     }
-
+    
     .logo {
       width: 120px;
       height: 120px;
@@ -198,12 +263,15 @@ const isBaseUrl =
     /* Close Button Styles */
     .close-menu {
       position: absolute;
-      top: 10px;
+      top: 0;
       right: 30px;
       font-size: 56px;
       color: #fff;
       cursor: pointer;
       display: block;
     }
+
   }
+
 </style>
+
