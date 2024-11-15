@@ -4,19 +4,18 @@ const isBaseUrl =
 ---
 
 <script>
-  document.addEventListener("astro:page-load" , () => {
+  const setupMenu = () => {
     const header = document.querySelector("header");
     const logo = document.querySelector(".logo");
     const menuToggle = document.querySelector(".menu-toggle");
     const navLinks = document.querySelector(".nav-links");
     const closeMenu = document.querySelector(".close-menu");
-    const isBaseUrl =
-      window.location.pathname === "/" ||
-      window.location.pathname.startsWith("/#");
 
-    
-    // Função para alterar o cabeçalho ao rolar ou carregar a página
-    const changeHeader = () => {
+    // Inicialmente, certifique-se que o body não esteja com overflow escondido
+    document.body.style.overflow = "auto";
+
+    // Função para alterar o cabeçalho ao rolar
+    const updateHeaderOnScroll = () => {
       if (window.scrollY > 0) {
         header.classList.add("scroll");
         logo.setAttribute("src", "/images/logo-light.png");
@@ -26,55 +25,88 @@ const isBaseUrl =
       }
     };
 
-    // Atualiza o header ao carregar e ao rolar a página
-    window.addEventListener("scroll", changeHeader);
+    // Inicializa os eventos de rolagem
+    window.addEventListener("scroll", updateHeaderOnScroll);
+    updateHeaderOnScroll(); // Atualiza na carga inicial
 
-    // Abre e fecha o menu ao clicar no ícone de menu ou no botão de fechar
-    menuToggle.addEventListener("click", () => {
+    // Função para abrir ou fechar o menu
+    const toggleMenu = () => {
       navLinks.classList.toggle("open");
-      document.body.classList.toggle("no-scroll");
-    });
+      // Bloqueia o scroll ao abrir o menu
+      if (navLinks.classList.contains("open")) {
+        document.body.style.overflow = "hidden";
+        console.log("Scroll bloqueado");
+      } else {
+        document.body.style.overflow = "auto";
+      }
+    };
 
-    closeMenu.addEventListener("click", () => {
+    // Função para fechar o menu
+    const closeMenuFunction = () => {
       navLinks.classList.remove("open");
-      document.body.classList.remove("no-scroll");
-    });
+      document.body.style.overflow = "auto"; // Sempre libera o scroll ao fechar
+    };
 
-    if (isBaseUrl) {
-      scrollToSection();
-    }
-    // Lógica de navegação para rolagem suave
-    function scrollToSection() {
-      document.querySelectorAll(".nav-links li a").forEach((link) => {
-        link.addEventListener("click", (event) => {
-          event.preventDefault();
-          const href = link.getAttribute("href");
-          console.log(href.substring(1));
-          const targetId = href.substring(1);
-          
-          const targetSection = document.getElementById(targetId);
-
-          window.scrollTo({
-            top: targetSection.offsetTop - header.offsetHeight,
-            behavior: "smooth",
-          });
-
-          navLinks.classList.remove("open");
-          document.body.classList.remove("no-scroll");
-        });
-      });
-    }
+    // Adiciona evento para abrir o menu
+    menuToggle.addEventListener("click", toggleMenu);
+    // Adiciona evento para fechar o menu
+    closeMenu.addEventListener("click", closeMenuFunction);
 
     // Fecha o menu ao clicar fora dele
     document.addEventListener("click", (event) => {
-      const target = event.target as Node;
-      if (!navLinks.contains(target) && !menuToggle.contains(target)) {
-        navLinks.classList.remove("open");
-        document.body.classList.remove("no-scroll");
+      const targetEvent = event.target as HTMLElement;
+      const isClickOutside =
+        !navLinks.contains(targetEvent) && !menuToggle.contains(targetEvent);
+      if (isClickOutside && navLinks.classList.contains("open")) {
+        closeMenuFunction();
       }
     });
 
-  });
+    // Rolagem suave para âncoras
+    const setupSmoothScroll = () => {
+      const isBaseUrl =
+        window.location.pathname === "/" ||
+        window.location.pathname.startsWith("/#");
+
+      // Adiciona o evento de clique em todos os links dentro de ".nav-links"
+      document.querySelectorAll(".nav-links li a").forEach((link) => {
+        link.addEventListener("click", (event) => {
+          console.log("cliquei");
+          // Se o link for uma ancora (hash link), faz o scroll suave
+          if (link.getAttribute("href").startsWith("#")) {
+            event.preventDefault();
+            const targetId = link.getAttribute("href").substring(1);
+            const targetSection = document.getElementById(targetId);
+
+            if (targetSection) {
+              const headerOffset = header.offsetHeight;
+              const elementPosition = targetSection.offsetTop;
+              const offsetPosition = elementPosition - headerOffset;
+
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+              });
+
+              closeMenuFunction();
+            }
+          }
+
+          // Fecha o menu após qualquer clique
+          closeMenuFunction();
+        });
+      });
+    };
+
+    setupSmoothScroll();
+  };
+
+  const initializeHeader = () => {
+    setupMenu(); // Configura o menu
+  };
+
+  // Reaplica os eventos após uma troca de página no Astro
+  document.addEventListener("astro:page-load", initializeHeader);
 </script>
 
 <header>
@@ -88,10 +120,18 @@ const isBaseUrl =
       isBaseUrl && (
         <ul class="nav-links">
           <span class="close-menu">&times;</span>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#sobre">Sobre</a></li>
-          <li><a href="#porque">Por que fazer extensão?</a></li>
-          <li><a href="#procedimentos" >Procedimentos</a></li>
+          <li>
+            <a href="#inicio">Inicio</a>
+          </li>
+          <li>
+            <a href="#sobre">Sobre</a>
+          </li>
+          <li>
+            <a href="#porque">Por que fazer extensão?</a>
+          </li>
+          <li>
+            <a href="#procedimentos">Procedimentos</a>
+          </li>
         </ul>
       )
     }
@@ -99,15 +139,22 @@ const isBaseUrl =
       !isBaseUrl && (
         <ul class="nav-links">
           <span class="close-menu">&times;</span>
-          <li><a href="/">&#8592; Voltar ao início</a></li>
+          <li>
+            <a href="/">&#8592; Voltar ao início</a>
+          </li>
           <li class="dropdown">
             <a>Procedimentos &#9662;</a>
             <ul class="submenu">
-              <li><a href="/extensaodecilios">Extensão de cílios</a></li>
-              <li><a href="/desingsobrancelha">Design de Sobrancelha</a></li>
+              <li>
+                <a href="/extensaodecilios">Extensão de cílios</a>
+              </li>
+              <li>
+                <a href="/designsobrancelhas" class="sobrancelhas">
+                  Design de Sobrancelha
+                </a>
+              </li>
             </ul>
           </li>
-
         </ul>
       )
     }
@@ -152,7 +199,7 @@ const isBaseUrl =
     height: 150px;
   }
 
-  .nav-links  {
+  .nav-links {
     display: flex;
     list-style: none;
     gap: 2rem;
@@ -168,7 +215,7 @@ const isBaseUrl =
     color: #e1245e;
   }
 
- .dropdown {
+  .dropdown {
     position: relative;
   }
   .nav-links .dropdown .submenu {
@@ -199,16 +246,14 @@ const isBaseUrl =
 
   .submenu li:hover {
     background-color: #444;
-
   }
- .submenu li a:hover {
+  .submenu li a:hover {
     color: #e1245e;
   }
 
   .nav-links .dropdown:hover .submenu {
     display: block;
   }
-
 
   /* Mobile Menu */
   .menu-toggle {
@@ -225,7 +270,7 @@ const isBaseUrl =
   .close-menu {
     display: none;
   }
-  
+
   /* Responsive for Mobile */
   @media (max-width: 1024px) {
     .menu-toggle {
@@ -255,7 +300,7 @@ const isBaseUrl =
       justify-content: space-between;
       padding-inline: 40px;
     }
-    
+
     .logo {
       width: 120px;
       height: 120px;
@@ -271,8 +316,5 @@ const isBaseUrl =
       cursor: pointer;
       display: block;
     }
-
   }
-
 </style>
-
