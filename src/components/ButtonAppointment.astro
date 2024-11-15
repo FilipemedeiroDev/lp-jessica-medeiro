@@ -1,10 +1,11 @@
-<a
-  href="https://api.whatsapp.com/send?phone=5511947966822&text=Olá Jéssica, visitei o seu site. Gostaria de agendar um horário."
-  target="_blank"
->
+---
+const { page, icon, targetUrl } = Astro.props;
+---
+
+<a href={page ? page : targetUrl} target={page ? "_self" : "_blank"}>
   <slot />
-  <img src="/icons/whatsapp.svg" alt="whatsapp icon" /></a
->
+  {icon && <img src={icon} alt="whatsapp icon" />}
+</a>
 
 <style>
   a {
@@ -39,7 +40,7 @@
     }
   }
 
-  @media (min-width: 1025px) and (max-width: 1440px) {
+  @media (min-width: 1024px) and (max-width: 1440px) {
     a {
       width: 250px;
       font-size: 0.9rem;

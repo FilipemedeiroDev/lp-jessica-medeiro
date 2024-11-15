@@ -1,0 +1,246 @@
+---
+import ButtonAppointment from "../components/ButtonAppointment.astro";
+import Layout from "../layouts/Layout.astro";
+
+
+const services = [
+    {
+        id: 1,
+        name: "Volume Brasileiro 1",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat minus recusandae officia autem provident esse alias cumque aut saepe, optio sint facere doloribus. Reiciendis similique ut minus vitae, sed omnis!",
+        image: "/images/image-carrousel-7.jpg"
+    },
+    {
+        id: 2,
+        name: "Volume Brasileiro 2",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat minus recusandae officia autem provident esse alias cumque aut saepe, optio sint facere doloribus. Reiciendis similique ut minus vitae, sed omnis!",
+        image: "/images/image-carrousel-7.jpg"
+    },
+    {
+        id: 3,
+        name: "Volume Brasileiro 3",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat minus recusandae officia autem provident esse alias cumque aut saepe, optio sint facere doloribus. Reiciendis similique ut minus vitae, sed omnis!",
+        image: "/images/image-carrousel-7.jpg"
+    },
+    {
+        id: 4,
+        name: "Volume Brasileiro 4",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat minus recusandae officia autem provident esse alias cumque aut saepe, optio sint facere doloribus. Reiciendis similique ut minus vitae, sed omnis!",
+        image: "/images/image-carrousel-7.jpg"
+    }, 
+    {
+        id: 5,
+        name: "Volume Brasileiro 5",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat minus recusandae officia autem provident esse alias cumque aut saepe, optio sint facere doloribus. Reiciendis similique ut minus vitae, sed omnis!",
+        image: "/images/image-carrousel-7.jpg"
+    }
+]
+---
+
+<Layout title="Extensão de cílios">
+    <section>
+        <div class="banner-extensao">
+            <h1>EXTENSÃO DE CÍLIOS</h1>
+            <p>Praticidade no olhar</p>
+        </div>
+
+        <div class="section-services">
+            {
+                services.map(service => (
+                    <div class="services">
+                        <div class="services-content">
+                            <div class="service-text-content">
+                                <h1>{service.name}</h1>
+                                <p>{service.description}</p>
+                            </div>
+                        
+                            <ButtonAppointment
+                                icon="/icons/whatsapp.svg"
+                                targetUrl={`
+                                    https://api.whatsapp.com/send?phone=5511947966822&text=
+                                    Olá Jéssica, visitei o seu site. Adorei o ${service.name}, gostaria de agendar um horário.
+                                `}
+                            >
+                                Quero Agendar
+                            </ButtonAppointment>
+                        </div>
+        
+                        <div class="service-content-image">
+                            <h1>{service.name}</h1>
+                            <img src={service.image} alt="image service" />
+                        </div>
+                    </div>
+                   
+                ))
+            }
+        </div>
+    
+    </section>
+
+    
+</Layout>
+
+<style>
+    .banner-extensao {
+        background-image: url("/images/hero-banner.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-color: rgba(0, 0, 0, 0.7);
+        background-blend-mode: multiply;
+        height: auto;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        padding: 280px 0 220px 0;
+    }
+
+    .no-scroll {
+      overflow: hidden;
+    }
+
+    .section-services {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        padding: 100px 0;
+        gap: 180px;
+    }
+
+    .services {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       
+        width: 100%;
+        max-width: 1200px;
+
+    }
+
+    .services-content { 
+        display: flex;
+        flex-direction: column;
+
+        width: 50%;
+    }
+    .service-text-content {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 10px;
+    }
+
+    .service-text-content p {
+        text-align: justify;
+    }
+
+    .service-content-image {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        width: 50%;
+    }
+
+    .service-content-image h1 {
+        display: none;
+    }
+
+    .service-content-image img{
+        width: 340px;
+        height: 350px;
+
+        border-radius: 12px;
+    }
+
+    .content-social-footer {
+        background-color: black;
+    }
+
+    @media (max-width: 768px) {
+        .section-services {
+            padding: 80px 20px;
+            gap: 90px;
+        }
+        .services {
+            flex-direction: column-reverse;             
+            gap: 40px;
+        }
+        .services-content { 
+            align-items: center ;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .service-text-content {
+            width: 100%;
+            align-items: center;
+        }
+
+        .service-text-content h1 {
+            display: none;
+        }
+
+        .service-text-content p {
+            text-align: center;
+        }
+
+        .service-content-image h1 {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .service-content-image {
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-content-image img{
+            width: 180px;
+            height: 180px;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+
+        .banner-extensao  {
+            padding: 240px 0 180px 0;
+
+        }
+     
+        .services {
+            padding-inline: 60px;
+        }
+
+        .service-content-image img{
+            width: 240px;
+            height: 240px;
+
+            border-radius: 12px;
+        }
+    }
+
+    @media (min-width: 1024px) and (max-width: 1440px) {
+        .banner-extensao  {
+            padding: 240px 0 180px 0;
+
+        }
+        .services {
+            padding-inline: 60px;
+        }
+
+
+        .service-content-image img{
+            width: 280px;
+            height: 280px;
+
+            border-radius: 12px;
+        }
+
+    }
+</style>

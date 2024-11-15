@@ -5,12 +5,14 @@ const procedures = [
   {
     id: 1,
     title: "Extensão de cílios",
+    page: "/extensaodecilios",
     image: "/images/hero-banner.jpg",
     slogan: "Praticidade que realça o olhar",
   },
   {
     id: 2,
     title: "Design de sobrancelhas",
+    page: "/designsobrancelhas",
     image: "/images/design-sobrancelhas.jpg",
     slogan: "Tenha um rosto mais harmonioso",
   },
@@ -26,7 +28,11 @@ const procedures = [
           <img src={procedure.image} alt={procedure.title} />
           <h2>{procedure.title}</h2>
           <p>{procedure.slogan}</p>
-          <ButtonAppointment>Quero agendar</ButtonAppointment>
+          <ButtonAppointment 
+            page={`${procedure.page}`}
+          >
+            Saiba mais
+          </ButtonAppointment>
         </div>
       ))
     }

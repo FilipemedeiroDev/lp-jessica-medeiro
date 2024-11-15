@@ -1,6 +1,22 @@
+<script>
+
+  document.addEventListener("astro:page-load", () => {
+    const footer = document.querySelector("footer");
+    const copyright = document.getElementById("copyrigth")
+
+    const isBaseUrl = window.location.pathname === "/" || window.location.pathname.startsWith("/#")
+
+      if(!isBaseUrl) {
+        footer.style.backgroundColor = "#000";
+        copyright.style.backgroundColor = "#000";
+    }
+  })
+
+</script>
+
 <footer>
   <div class="content-social-footer">
-    <a href="#">
+    <a href="/">
       <img src="/images/logo-dark.png" alt="Logo" class="logo" />
     </a>
     <div class="social-media-icons">
@@ -37,7 +53,7 @@
 
 <div class="divider"></div>
 
-<div class="copyright">
+<div class="copyright" id="copyrigth">
   <p>Todos os direitos reservados © 2024 - Jessica Medeiro</p>
 
   <span
@@ -60,6 +76,9 @@
     justify-content: center;
   }
 
+  .no-scroll {
+    overflow: hidden;
+  }
   .content-social-footer {
     width: 50%;
     display: flex;
@@ -100,15 +119,12 @@
     gap: 20px;
   }
 
-  .divider {
-    display: none;
-  }
-
   .copyright {
     display: flex;
     flex-direction: column;
     align-items: center;
 
+    padding: 40px 0;
     color: gray;
   }
 
@@ -124,6 +140,7 @@
     color: white;
     cursor: pointer;
   }
+
 
   @media (max-width: 1024px) {
     footer {
@@ -146,20 +163,5 @@
       width: 100%;
     }
 
-    .divider {
-      display: block;
-      align-content: center;
-
-      width: 250px;
-      height: 1px;
-
-      margin: 20px auto;
-
-      background-color: gray;
-    }
-
-    .copyright {
-      padding: 0 20px;
-    }
   }
 </style>
